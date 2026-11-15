@@ -1,5 +1,5 @@
 import { NavLink, Form } from "react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { cn } from "~/lib/utils";
 import { UserRole } from "~/db/schema";
 import { UserAvatar } from "~/components/user-avatar";
@@ -110,7 +110,9 @@ export function Sidebar({
   currentUser,
   recentCourses = [],
   isTeamAdmin = false,
-}: SidebarProps) {
+  headerSlot,
+  navSlot,
+}: SidebarProps & { headerSlot?: ReactNode; navSlot?: ReactNode }) {
   const currentUserRole = currentUser?.role ?? null;
   const [isDark, setIsDark] = useState(false);
 
@@ -133,9 +135,12 @@ export function Sidebar({
         <NavLink to="/" className="text-lg font-bold tracking-tight">
           Cadence
         </NavLink>
+        {/* PROTOTYPE slot for notification-ux variants */}
+        {headerSlot && <div className="ml-auto">{headerSlot}</div>}
       </div>
 
       <nav className="flex-1 space-y-1 p-3">
+        {navSlot /* PROTOTYPE slot for notification-ux variants */}
         {navItems
           .filter((item) => isVisible(item, currentUserRole))
           .map((item) => (

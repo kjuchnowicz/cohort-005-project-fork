@@ -3,6 +3,7 @@ import type { Route } from "./+types/layout.app";
 import { Sidebar } from "~/components/sidebar";
 import { DevUI } from "~/components/dev-ui";
 import { Toaster } from "sonner";
+import { useNotificationsPrototype } from "~/components/notifications-prototype"; // PROTOTYPE
 import { getCurrentUserId, getDevCountry } from "~/lib/session";
 import { getCountryTierInfo, COUNTRIES } from "~/lib/ppp";
 import { eq, and, or, sql, desc } from "drizzle-orm";
@@ -226,6 +227,7 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
     countries,
     isTeamAdmin: userIsTeamAdmin,
   } = loaderData;
+  const proto = useNotificationsPrototype(currentUser?.role ?? null, userIsTeamAdmin); // PROTOTYPE
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -233,6 +235,8 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
         currentUser={currentUser}
         recentCourses={recentCourses}
         isTeamAdmin={userIsTeamAdmin}
+        headerSlot={proto.headerSlot}
+        navSlot={proto.navSlot}
       />
       <main className="flex-1 overflow-y-auto">
         <Outlet />
@@ -245,6 +249,7 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
         countries={countries}
       />
       <Toaster position="bottom-right" richColors closeButton />
+      {proto.overlay}
     </div>
   );
 }
