@@ -35,6 +35,32 @@ _Avoid_: Completed, Paid out
 **Failed Refund**:
 A Refund where the money couldn't be sent. The Refund Request stays approved, because the decision hasn't changed.
 
+### Roles
+
+**Admin**:
+Cadence staff who run the platform, including deciding Refund Requests.
+_Avoid_: Team Admin (a different role), Moderator
+
+**Team Admin**:
+The person who bought seats for a team and hands out its coupons. Not an Admin.
+_Avoid_: Team manager, Team owner, Admin (alone)
+
+### Notifications
+
+**Notification**:
+A message telling one user, inside Cadence, that something happened which concerns them — usually something they should act on or were waiting for. Never sent about the user's own action, and never promotional or scheduled.
+_Avoid_: Alert, Nudge, Digest, Message
+
+### Lesson discussion
+
+**Lesson Question**:
+A top-level comment a Learner leaves on a lesson.
+_Avoid_: Comment (for the top-level one), Thread, Post
+
+**Reply**:
+A comment answering another comment on a lesson.
+_Avoid_: Answer, Response
+
 ### Other terms
 
 **Watch Limit**:
