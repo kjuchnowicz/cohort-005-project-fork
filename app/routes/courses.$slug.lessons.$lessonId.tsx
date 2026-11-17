@@ -43,7 +43,6 @@ import {
 } from "~/modules/lesson-viewer/comments.server";
 import {
   getQuizByLessonId,
-  getQuizInLesson,
   getQuizWithQuestions,
   getBestAttempt,
   computeResult,
@@ -431,8 +430,10 @@ export async function action({ params, request }: Route.ActionArgs) {
     if (isNaN(quizId)) {
       throw data("Invalid quiz ID", { status: 400 });
     }
-    const quiz = getQuizInLesson(quizId, lessonId);
-    if (!quiz) {
+    // Scope the quiz to this lesson so a quiz elsewhere can't be reached by
+    // posting its id to this route.
+    const quiz = getQuizByLessonId(lessonId);
+    if (!quiz || quiz.id !== quizId) {
       throw data("Quiz not found", { status: 404 });
     }
 
