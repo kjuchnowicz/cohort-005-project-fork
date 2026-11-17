@@ -5,7 +5,7 @@ import { type RenderedComment } from "~/components/comment-thread";
 import { db } from "~/db";
 import { comments, users, UserRole } from "~/db/schema";
 import { asc, eq } from "drizzle-orm";
-import type { ThreadComment } from "./types";
+import type { ThreadComment } from "./lib/types";
 
 export function getCommentById(commentId: number) {
   return db.select().from(comments).where(eq(comments.id, commentId)).get();
