@@ -5,18 +5,25 @@ export type NoteDraft = {
   canSave: boolean;
 };
 
-export function describeDraft(
+/**
+ * What the note editor shows for the text in the box: the character count,
+ * whether it is over the limit, whether it differs from the saved note, and
+ * whether Save should be enabled.
+ */
+export function describeNoteDraft(
   draft: string,
   savedBody: string,
   maxLength: number
 ): NoteDraft {
-  const tooLong = draft.length > maxLength;
-  const empty = draft.trim().length === 0;
-  const dirty = draft !== savedBody;
+  // The server trims before it checks the limit and stores the note, so the
+  // editor judges the same trimmed text it would send.
+  const body = draft.trim();
+  const tooLong = body.length > maxLength;
+  const dirty = body !== savedBody;
   return {
-    length: draft.length,
+    length: body.length,
     tooLong,
     dirty,
-    canSave: dirty && !empty && !tooLong,
+    canSave: dirty && body.length > 0 && !tooLong,
   };
 }

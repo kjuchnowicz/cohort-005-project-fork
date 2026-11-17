@@ -47,4 +47,20 @@ describe("describeNoteDraft", () => {
       canSave: false,
     });
   });
+
+  it("is not dirty when the saved note differs only by trimmed whitespace", () => {
+    const draft = describeNoteDraft("hello \n", "hello", 10);
+    expect(draft.dirty).toBe(false);
+    expect(draft.canSave).toBe(false);
+  });
+
+  it("does not count surrounding whitespace against the limit", () => {
+    const draft = describeNoteDraft(`  ${"a".repeat(10)}  `, "", 10);
+    expect(draft).toEqual({
+      length: 10,
+      tooLong: false,
+      dirty: true,
+      canSave: true,
+    });
+  });
 });
